@@ -78,40 +78,40 @@ d3.json(dataFile).then((importedData) => {
 		// Sort the data by Greek search results
 		var sortedOTUs = otuObject.sort((a, b) => b.sample_value - a.sample_value);
 
-		console.log(sortedOTUs);
+//		console.log(sortedOTUs);
 
-// Slice the first 10 objects for plotting
-//slicedData = sortedByGreekSearch.slice(0, 10);
+		// Slice the first 10 objects for plotting
+		slicedOTUs = sortedOTUs.slice(0, 10);
 
-// Reverse the array to accommodate Plotly's defaults
-//reversedData = slicedData.reverse();
+		// Reverse the array to accommodate Plotly's defaults
+		// Reverse the array to accommodate Plotly's defaults
+		reversedOTUs = slicedOTUs.reverse();
 
-// Trace1 for the Greek Data
-// var trace1 = {
-//   x: reversedData.map(object => object.greekSearchResults),
-//   y: reversedData.map(object => object.greekName),
-//   text: reversedData.map(object => object.greekName),
-//   name: "Greek",
-//   type: "bar",
-//   orientation: "h"
-// };
 
-// // data
-// var data = [trace1];
+		// Trace1 for the Greek Data
+		var trace1 = {
+   			x: reversedOTUs.map(object => object.sample_value),
+			y: reversedOTUs.map(object => `OTU ${object.otu_id}`),
+   			text: reversedOTUs.map(object => object.otu_label),
+   			type: "bar",
+   			orientation: "h",
+			marker: {
+				color: 'rgb(142,124,195)'
+			}
+ 		};
 
-// // Apply the group bar mode to the layout
-// var layout = {
-//   title: "Greek gods search results",
-//   margin: {
-//     l: 100,
-//     r: 100,
-//     t: 100,
-//     b: 100
-//   }
-// };
+		// data
+		var data = [trace1];
 
-// // Render the plot to the div tag with id "plot"
-// Plotly.newPlot("plot", data, layout);
+		// Apply the group bar mode to the layout
+		var layout = {
+			margin: {
+				top: 0
+			}
+		};
+
+		// Render the plot to the div tag with id "plot"
+		Plotly.newPlot("bar", data, layout);
 
   
 	}
