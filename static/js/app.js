@@ -84,7 +84,6 @@ d3.json(dataFile).then((importedData) => {
 		slicedOTUs = sortedOTUs.slice(0, 10);
 
 		// Reverse the array to accommodate Plotly's defaults
-		// Reverse the array to accommodate Plotly's defaults
 		reversedOTUs = slicedOTUs.reverse();
 
 
@@ -93,10 +92,12 @@ d3.json(dataFile).then((importedData) => {
    			x: reversedOTUs.map(object => object.sample_value),
 			y: reversedOTUs.map(object => `OTU ${object.otu_id}`),
    			text: reversedOTUs.map(object => object.otu_label),
+			name: "Sample Value",
    			type: "bar",
    			orientation: "h",
 			marker: {
-				color: 'rgb(142,124,195)'
+				color: 'rgb(142,124,195)',
+				opacity: 0.5
 			}
  		};
 
@@ -105,6 +106,13 @@ d3.json(dataFile).then((importedData) => {
 
 		// Apply the group bar mode to the layout
 		var layout = {
+			title: `Top 10 OTUs for Subject ${idChosen}`,
+			paper_bgcolor: 'rgba(245,246,249,1)',
+			plot_bgcolor: 'rgba(245,246,249,1)',
+			width: 600,
+			height: 600,
+			showlegend: false,
+			annotations: [],
 			margin: {
 				top: 0
 			}
