@@ -9,8 +9,9 @@ d3.json(dataFile).then((importedData) => {
 	// grab the array of ids
 	var ids = importedData.names;
 	var demographics = importedData.metadata;
+	var samples = importedData.samples;
 
-	console.log(demographics);
+	console.log(samples);
 
 	// locate the target for the dropdown values
 	var dropdownTarget = d3.select("#selDataset");
@@ -36,25 +37,30 @@ d3.json(dataFile).then((importedData) => {
   
 
 
-		function filterId(demo) {
-			return demo.id === parseInt(idChosen);
+		function filterId(data) {
+			return data.id == idChosen;
 		}
   
 		// 2. Use filter() to pass the function as its argument
 		var currDemo = demographics.filter(filterId);
-		console.log(currDemo);
+	//	console.log(currDemo);
+
+		var currSample = samples.filter(filterId);
+		console.log(currSample);
 
 		var demoTarget = d3.select("#sample-metadata");
+		demoTarget.html("");
+
 		var demoTbl = demoTarget.append("table");
 
 		// loop through the key/value pairs in the metadata
 		// and display them in the panel
 
 		var demoKeys = Object.keys(currDemo[0]);
-		console.log(demoKeys);
-		demoKeys.forEach(key => {
-			var demoRow = demoTbl.append("tr");
-			demoRow.append("td").text((`${key}: ${currDemo[0][key]}`));
+//			console.log(demoKeys);
+			demoKeys.forEach(key => {
+				var demoRow = demoTbl.append("tr");
+				demoRow.append("td").text((`${key}: ${currDemo[0][key]}`));
 		});
   
 //   //  Check to make sure your filtered your cities.
