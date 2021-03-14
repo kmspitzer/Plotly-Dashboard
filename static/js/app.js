@@ -20,8 +20,10 @@ d3.json(dataFile).then((importedData) => {
 	for (let i = 0; i < ids.length; i++) {
 		dropdownTarget.append("option").attr("value", ids[i]).text(ids[i]);
 	}
-	
 
+	// initialize page with data
+	optionChanged();
+	
 
 	// On change to the DOM, call getData()
 	d3.selectAll("#selDataset").on("change", optionChanged);
@@ -90,7 +92,7 @@ d3.json(dataFile).then((importedData) => {
 		// Trace1 for the Greek Data
 		var trace1 = {
    			x: reversedOTUs.map(object => object.sample_value),
-			y: reversedOTUs.map(object => `OTU ${object.otu_id}`),
+			y: reversedOTUs.map(object => `OTU ${object.otu_id} `),
    			text: reversedOTUs.map(object => object.otu_label),
 			name: "Sample Value",
    			type: "bar",
@@ -111,11 +113,20 @@ d3.json(dataFile).then((importedData) => {
 			plot_bgcolor: 'rgba(245,246,249,1)',
 			width: 600,
 			height: 600,
+			xaxis: {
+				title: "Sample Value",
+				titlefont: {
+					size: 12
+				}
+			},
 			showlegend: false,
 			annotations: [],
-			margin: {
-				top: 0
-			}
+			hoverlabel: {
+				bgcolor: 'rgba(245,246,249,1)',
+				font: {
+					color: 'rgba(7, 7, 7, 0.97)'
+				}
+			}	
 		};
 
 		// Render the plot to the div tag with id "plot"
