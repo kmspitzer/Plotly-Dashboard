@@ -58,11 +58,13 @@ d3.json(dataFile).then((importedData) => {
 		});
 
 		var currSample = samples.filter(filterId);
-		console.log(currSample);
+	//	console.log(currSample);
 
 		var otuIds = currSample[0].otu_ids;
 		var otuLabels = currSample[0].otu_labels;
 		var sampleValues = currSample[0].sample_values;
+
+		console.log(`Number of samples: ${otuIds.length}`)
 		// console.log(otuIds);
 		// console.log(otuLabels);
 		// console.log(sampleValues);
@@ -88,6 +90,8 @@ d3.json(dataFile).then((importedData) => {
 		// Reverse the array to accommodate Plotly's defaults
 		reversedOTUs = slicedOTUs.reverse();
 
+		var barChart = d3.select("#bar");
+		barChart.html("");
 
 		// Trace1 for the Greek Data
 		var trace1 = {
@@ -131,6 +135,42 @@ d3.json(dataFile).then((importedData) => {
 
 		// Render the plot to the div tag with id "plot"
 		Plotly.newPlot("bar", data, layout);
+
+
+		var trace2 = {
+			x: otuIds,
+			y: sampleValues,
+			text: otuLabels,
+			mode: 'markers',
+			marker: {
+			  color: otuIds,
+			  colorscale: "Portland",
+			  size: sampleValues
+			}
+		};
+		  
+		var data = [trace2];
+		  
+		var layout = {
+			title: `Sample Distribution for Subject ${idChosen}`,
+			xaxis: {
+				title: "OTU ID",
+				titlefont: {
+					size: 12
+				}
+			},
+			yaxis: {
+				title: "Sample Value",
+				titlefont: {
+					size: 12
+				}
+			},
+			showlegend: false,
+			height: 600,
+			width: 1000
+		};
+		  
+		Plotly.newPlot('bubble', data, layout);
 
   
 	}
