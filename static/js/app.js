@@ -73,10 +73,12 @@ d3.json(dataFile).then((importedData) => {
 			tempObject = { "otu_id": otuIds[i], "otu_label": otuLabels[i], "sample_value": sampleValues[i]};
 			otuObject.push(tempObject);
 		}
-		console.log(otuObject);
+//		console.log(otuObject);
 
 		// Sort the data by Greek search results
-//		var sortedSampleValues = data.sort((a, b) => b.sample - a.greekSearchResults);
+		var sortedOTUs = otuObject.sort((a, b) => b.sample_value - a.sample_value);
+
+		console.log(sortedOTUs);
 
 // Slice the first 10 objects for plotting
 //slicedData = sortedByGreekSearch.slice(0, 10);
