@@ -215,7 +215,8 @@ d3.json(dataFile).then((importedData) => {
 			width: 1200
 		};
 		
-		// generate bubble chart
+		// generate bubble chart and place it in the
+		// bubble div
 		Plotly.newPlot('bubble', data, layout);
 
 

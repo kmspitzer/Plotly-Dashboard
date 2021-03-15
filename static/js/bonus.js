@@ -1,7 +1,23 @@
+//
+//
+//   UCSD Data Science and Visualization Bootcamp
+//     Plotly Challenge
+//
+//     Kate Spitzer
+//
+//  This function receives the wash frequency of the current
+//  the current study subject and renders a gauge chart using
+//  Plotly pie chart functionality.
+//
+//  Code was located on the plotly.com community forum and
+//  modified to render this chart
+//
+//
+
 
 function generateGauge(needleValue) {
 
-	// Trig to calc meter point
+	// trig to calc meter point
 	var degrees = 180 - (needleValue*20);
    	var radius = .5;
 	var radians = degrees * Math.PI / 180;
@@ -16,6 +32,7 @@ function generateGauge(needleValue) {
      	pathEnd = ' Z';
 	var path = mainPath.concat(pathX,space,pathY,pathEnd);
 
+	// create data trace for our gauge chart
 	var data = [{ type: 'category',
 		x: [0], y:[0],
     	marker: {size: 28, color:'850000'},
@@ -27,10 +44,6 @@ function generateGauge(needleValue) {
   			text: ["8-9", "7-8", "6-7", "5-6", "4-5", "3-4", "2-3", "1-2", "0-1"],
   			textinfo: 'text',
   			textposition:'inside',      
-//  marker: {colors:['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
-//                         'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)',
-//                         'rgba(210, 206, 145, .5)', 
-//                         'rgba(255, 255, 255, 0)']},
 			marker: {colors:["darkcyan", "cadetblue", "darkturquoise", "mediumturquoise", "turquoise",
 							"cyan", "aquamarine", "paleturquoise", "lightcyan",
 							"white"]},
@@ -39,6 +52,7 @@ function generateGauge(needleValue) {
   		showlegend: false
 	}];
 
+	// define our chart layout
 	var layout = {
   		shapes:[{
       		type: 'path',
@@ -59,7 +73,8 @@ function generateGauge(needleValue) {
 	};
 
 
-
+	// render the gauge chart in the gauge div
+	// on our page
 	Plotly.newPlot('gauge', data, layout);
 
 }
