@@ -57,6 +57,9 @@ d3.json(dataFile).then((importedData) => {
 				demoRow.append("td").text((`${key}: ${currDemo[0][key]}`));
 		});
 
+		var numScrubs = currDemo[0].wfreq;
+		console.log(numScrubs);
+
 		var currSample = samples.filter(filterId);
 	//	console.log(currSample);
 
@@ -64,7 +67,7 @@ d3.json(dataFile).then((importedData) => {
 		var otuLabels = currSample[0].otu_labels;
 		var sampleValues = currSample[0].sample_values;
 
-		console.log(`Number of samples: ${otuIds.length}`)
+		//console.log(`Number of samples: ${otuIds.length}`)
 		// console.log(otuIds);
 		// console.log(otuLabels);
 		// console.log(sampleValues);
@@ -94,7 +97,7 @@ d3.json(dataFile).then((importedData) => {
 		barChart.html("");
 
 		// Trace1 for the Greek Data
-		var trace1 = {
+		var data = [{
    			x: reversedOTUs.map(object => object.sample_value),
 			y: reversedOTUs.map(object => `OTU ${object.otu_id} `),
    			text: reversedOTUs.map(object => object.otu_label),
@@ -105,18 +108,16 @@ d3.json(dataFile).then((importedData) => {
 				color: 'rgb(142,124,195)',
 				opacity: 0.5
 			}
- 		};
+ 		}];
 
-		// data
-		var data = [trace1];
 
 		// Apply the group bar mode to the layout
 		var layout = {
 			title: `Top 10 OTUs for Subject ${idChosen}`,
 			paper_bgcolor: 'rgba(245,246,249,1)',
 			plot_bgcolor: 'rgba(245,246,249,1)',
-			width: 600,
-			height: 600,
+			width: 450,
+			height: 550,
 			xaxis: {
 				title: "Sample Value",
 				titlefont: {
@@ -137,7 +138,7 @@ d3.json(dataFile).then((importedData) => {
 		Plotly.newPlot("bar", data, layout);
 
 
-		var trace2 = {
+		var data = [{
 			x: otuIds,
 			y: sampleValues,
 			text: otuLabels,
@@ -147,9 +148,8 @@ d3.json(dataFile).then((importedData) => {
 			  colorscale: "Portland",
 			  size: sampleValues
 			}
-		};
-		  
-		var data = [trace2];
+		}];
+
 		  
 		var layout = {
 			title: `Sample Distribution for Subject ${idChosen}`,
@@ -171,6 +171,40 @@ d3.json(dataFile).then((importedData) => {
 		};
 		  
 		Plotly.newPlot('bubble', data, layout);
+
+
+		var data = [{
+			  type: "indicator",
+			  mode: "gauge+number",
+			  value: numScrubs,
+			  title: { text: "Scrubs per Week", font: { size: 18 } },
+			  gauge: {
+				axis: { range: [null, 9] },
+				bar: { color: "lightgrey" },
+				bgcolor: "white",
+				borderwidth: 0,
+				steps: [
+				  { range: [0, 1], color: "lightcyan" },
+				  { range: [1, 2], color: "paleturquoise" },
+				  { range: [2, 3], color: "aquamarine" },
+				  { range: [3, 4], color: "cyan" },
+				  { range: [4, 5], color: "turquoise" },
+				  { range: [5, 6], color: "mediumturquoise" },
+				  { range: [6, 7], color: "darkturquoise" },
+				  { range: [7, 8], color: "cadetblue" },
+				  { range: [8, 9], color: "darkcyan"}
+				]
+			  }
+			}];
+		  
+		  var layout = {
+			width: 450,
+			height: 350,
+			margin: { t: 0, r: 15, l: 15, b: 5 },
+			paper_bgcolor: 'rgba(245,246,249,1)'
+		  };
+		  
+		  Plotly.newPlot('gauge', data, layout);
 
   
 	}
