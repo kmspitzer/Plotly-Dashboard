@@ -160,7 +160,7 @@ d3.json(dataFile).then((importedData) => {
 			paper_bgcolor: 'rgba(245,246,249,1)',
 			plot_bgcolor: 'rgba(245,246,249,1)',
 			width: 450,
-			height: 550,
+			height: 450,
 			xaxis: {
 				title: "Sample Value",
 				titlefont: {
@@ -211,7 +211,7 @@ d3.json(dataFile).then((importedData) => {
 				}
 			},
 			showlegend: false,
-			height: 800,
+			height: 700,
 			width: 1200
 		};
 		
