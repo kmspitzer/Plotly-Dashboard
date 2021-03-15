@@ -1,5 +1,5 @@
+// initialize data filename
 const dataFile = "./data/samples.json";
-
 
 
 // read in the id list and build the 
@@ -12,13 +12,14 @@ d3.json(dataFile).then((importedData) => {
 	var samples = importedData.samples;
 
 
+
 	// locate the target for the dropdown values
 	var dropdownTarget = d3.select("#selDataset");
 
 	// loop through the ids and add them to the
 	// dropdown menu
 	for (let i = 0; i < ids.length; i++) {
-		dropdownTarget.append("option").attr("value", ids[i]).text(ids[i]);
+	dropdownTarget.append("option").attr("value", ids[i]).text(ids[i]);
 	}
 
 	// initialize page with data
@@ -34,7 +35,6 @@ d3.json(dataFile).then((importedData) => {
 
 		// Assign the value of the dropdown menu option to a variable
 		var idChosen = dropdownMenu.property("value");
-		console.log(idChosen);
   
 
 		function filterId(data) {
@@ -52,25 +52,19 @@ d3.json(dataFile).then((importedData) => {
 		// loop through the key/value pairs in the metadata
 		// and display them in the panel
 		var demoKeys = Object.keys(currDemo[0]);
-			demoKeys.forEach(key => {
-				var demoRow = demoTbl.append("tr");
-				demoRow.append("td").text((`${key}: ${currDemo[0][key]}`));
+		demoKeys.forEach(key => {
+			var demoRow = demoTbl.append("tr");
+			demoRow.append("td").text((`${key}: ${currDemo[0][key]}`));
 		});
 
 		var numScrubs = currDemo[0].wfreq;
-		console.log(numScrubs);
 
 		var currSample = samples.filter(filterId);
-	//	console.log(currSample);
 
 		var otuIds = currSample[0].otu_ids;
 		var otuLabels = currSample[0].otu_labels;
 		var sampleValues = currSample[0].sample_values;
 
-		//console.log(`Number of samples: ${otuIds.length}`)
-		// console.log(otuIds);
-		// console.log(otuLabels);
-		// console.log(sampleValues);
 
 		var otuObject = [];
 
@@ -80,12 +74,10 @@ d3.json(dataFile).then((importedData) => {
 			tempObject = { "otu_id": otuIds[i], "otu_label": otuLabels[i], "sample_value": sampleValues[i]};
 			otuObject.push(tempObject);
 		}
-//		console.log(otuObject);
 
 		// Sort the data by Greek search results
 		var sortedOTUs = otuObject.sort((a, b) => b.sample_value - a.sample_value);
 
-//		console.log(sortedOTUs);
 
 		// Slice the first 10 objects for plotting
 		slicedOTUs = sortedOTUs.slice(0, 10);
@@ -93,7 +85,7 @@ d3.json(dataFile).then((importedData) => {
 		// Reverse the array to accommodate Plotly's defaults
 		reversedOTUs = slicedOTUs.reverse();
 
-		var barChart = d3.select("#bar");
+			var barChart = d3.select("#bar");
 		barChart.html("");
 
 		// Trace1 for the Greek Data
@@ -125,13 +117,7 @@ d3.json(dataFile).then((importedData) => {
 				}
 			},
 			showlegend: false,
-			annotations: [],
-			hoverlabel: {
-				bgcolor: 'rgba(245,246,249,1)',
-				font: {
-					color: 'rgba(7, 7, 7, 0.97)'
-				}
-			}	
+			annotations: []	
 		};
 
 		// Render the plot to the div tag with id "plot"
@@ -144,9 +130,9 @@ d3.json(dataFile).then((importedData) => {
 			text: otuLabels,
 			mode: 'markers',
 			marker: {
-			  color: otuIds,
-			  colorscale: "Portland",
-			  size: sampleValues
+				color: otuIds,
+				colorscale: "Portland",
+				size: sampleValues
 			}
 		}];
 
@@ -166,47 +152,14 @@ d3.json(dataFile).then((importedData) => {
 				}
 			},
 			showlegend: false,
-			height: 600,
-			width: 1000
+			height: 800,
+			width: 1200
 		};
 		  
 		Plotly.newPlot('bubble', data, layout);
 
 
-		var data = [{
-			  type: "indicator",
-			  mode: "gauge+number",
-			  value: numScrubs,
-			  title: { text: "Scrubs per Week", font: { size: 18 } },
-			  gauge: {
-				axis: { range: [null, 9] },
-				bar: { color: "lightgrey" },
-				bgcolor: "white",
-				borderwidth: 0,
-				steps: [
-				  { range: [0, 1], color: "lightcyan" },
-				  { range: [1, 2], color: "paleturquoise" },
-				  { range: [2, 3], color: "aquamarine" },
-				  { range: [3, 4], color: "cyan" },
-				  { range: [4, 5], color: "turquoise" },
-				  { range: [5, 6], color: "mediumturquoise" },
-				  { range: [6, 7], color: "darkturquoise" },
-				  { range: [7, 8], color: "cadetblue" },
-				  { range: [8, 9], color: "darkcyan"}
-				]
-			  }
-			}];
-		  
-		  var layout = {
-			width: 450,
-			height: 350,
-			margin: { t: 0, r: 15, l: 15, b: 5 },
-			paper_bgcolor: 'rgba(245,246,249,1)'
-		  };
-		  
-		  Plotly.newPlot('gauge', data, layout);
-
-  
+		generateGauge(numScrubs);
 	}
   
 });
