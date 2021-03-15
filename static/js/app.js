@@ -1,55 +1,96 @@
+//
+//
+//   UCSD Data Science and Visualization Bootcamp
+//     Plotly Challenge
+//
+//     Kate Spitzer
+//
+//  This functionality reads in a JSON file containing study
+//  data related to bacteria present in human navels.
+//
+//  Using the data, a dropdown menu of subject ids is created,
+//  allowing the user to choose valid subject ids that are part
+//  of the study.  Based on the subject id chosen by the user,
+//  study data is used to display metadata/demographic info
+//  related to the subject, and generate a horizontal bar chart
+//  and bubble chart to visualize the subject's data results.
+//
+//  A function is called at the end to generate a bonus gauge
+//  chart to display the frequency with which the subject
+//  washed their navel.
+//
+//  Javascript, D3, and Plotly were employed to develop this
+//  challenge.
+//
+//
+
+
 // initialize data filename
 const dataFile = "./data/samples.json";
 
 
-// read in the id list and build the 
-// dropdown menu
+// read in the JSON study data 
 d3.json(dataFile).then((importedData) => {
 
-	// grab the array of ids
+	// pull out the subject ids, the demographics data,
+	// and the data samples
 	var ids = importedData.names;
 	var demographics = importedData.metadata;
 	var samples = importedData.samples;
-
 
 
 	// locate the target for the dropdown values
 	var dropdownTarget = d3.select("#selDataset");
 
 	// loop through the ids and add them to the
-	// dropdown menu
+	// dropdown menu as options
 	for (let i = 0; i < ids.length; i++) {
-	dropdownTarget.append("option").attr("value", ids[i]).text(ids[i]);
+		dropdownTarget.append("option").attr("value", ids[i]).text(ids[i]);
 	}
 
 	// initialize page with data
 	optionChanged();
 	
 
-	// On change to the DOM, call getData()
+	// wait on change, and refresh the page
 	d3.selectAll("#selDataset").on("change", optionChanged);
 
-	// Function called by DOM changes
+	// layout the page with the selected subject id
 	function optionChanged() {
+
+		// locate the dropdown input
 		var dropdownMenu = d3.select("#selDataset");
 
-		// Assign the value of the dropdown menu option to a variable
+		// assign the value of the dropdown menu option to a variable
 		var idChosen = dropdownMenu.property("value");
   
 
+		// function to filter data by selected ID
 		function filterId(data) {
 			return data.id == idChosen;
 		}
+
+
+
+		//////////////////////////
+		//                      //
+		//  DEMOGRAPHICS PANEL  //
+		//                      //
+		//////////////////////////
   
-		// 2. Use filter() to pass the function as its argument
+		// use filter() to pass the function as its argument
 		var currDemo = demographics.filter(filterId);
 
+
+		// locate the output position of the demographics
+		// table, and clear the data
 		var demoTarget = d3.select("#sample-metadata");
 		demoTarget.html("");
 
+		// create a table to display the data
 		var demoTbl = demoTarget.append("table");
 
-		// loop through the key/value pairs in the metadata
+		// loop through the key/value pairs in the demographics
 		// and display them in the panel
 		var demoKeys = Object.keys(currDemo[0]);
 		demoKeys.forEach(key => {
@@ -57,17 +98,26 @@ d3.json(dataFile).then((importedData) => {
 			demoRow.append("td").text((`${key}: ${currDemo[0][key]}`));
 		});
 
-		var numScrubs = currDemo[0].wfreq;
+		////////////////////////////
+		//                        //
+		//  HORIZONTAL BAR CHART  //
+		//                        //
+		////////////////////////////
 
+		// use filter() to pass the function as its argument
 		var currSample = samples.filter(filterId);
 
+		// we will need a list of OTU ids, OTU labels
+		// and sample values
 		var otuIds = currSample[0].otu_ids;
 		var otuLabels = currSample[0].otu_labels;
 		var sampleValues = currSample[0].sample_values;
 
 
+		// create a JS object for sorting
 		var otuObject = [];
 
+		// loop through list of study data and build the object
 		for (var i = 0; i < otuIds.length; i++) {
 			var tempObject = {};
 
@@ -75,20 +125,22 @@ d3.json(dataFile).then((importedData) => {
 			otuObject.push(tempObject);
 		}
 
-		// Sort the data by Greek search results
+		// sort the object by sample value
 		var sortedOTUs = otuObject.sort((a, b) => b.sample_value - a.sample_value);
 
 
-		// Slice the first 10 objects for plotting
+		// slice the first 10 objects for plotting
 		slicedOTUs = sortedOTUs.slice(0, 10);
 
 		// Reverse the array to accommodate Plotly's defaults
 		reversedOTUs = slicedOTUs.reverse();
 
-			var barChart = d3.select("#bar");
+		// locate the area to display the bar chart and
+		// clear out the HTML
+		var barChart = d3.select("#bar");
 		barChart.html("");
 
-		// Trace1 for the Greek Data
+		// create our data trace for the bar chart
 		var data = [{
    			x: reversedOTUs.map(object => object.sample_value),
 			y: reversedOTUs.map(object => `OTU ${object.otu_id} `),
@@ -102,8 +154,7 @@ d3.json(dataFile).then((importedData) => {
 			}
  		}];
 
-
-		// Apply the group bar mode to the layout
+		// define our bar chart layout values
 		var layout = {
 			title: `Top 10 OTUs for Subject ${idChosen}`,
 			paper_bgcolor: 'rgba(245,246,249,1)',
@@ -120,10 +171,18 @@ d3.json(dataFile).then((importedData) => {
 			annotations: []	
 		};
 
-		// Render the plot to the div tag with id "plot"
+		// place the bar chart in the "bar" div
 		Plotly.newPlot("bar", data, layout);
 
 
+
+		///////////////////
+		//               //
+		//  BUBBLE CHART //
+		//               //
+		///////////////////
+
+		// create our data trace for the bubble chart
 		var data = [{
 			x: otuIds,
 			y: sampleValues,
@@ -136,7 +195,7 @@ d3.json(dataFile).then((importedData) => {
 			}
 		}];
 
-		  
+		// define our bubble chart layout values  
 		var layout = {
 			title: `Sample Distribution for Subject ${idChosen}`,
 			xaxis: {
@@ -155,11 +214,20 @@ d3.json(dataFile).then((importedData) => {
 			height: 800,
 			width: 1200
 		};
-		  
+		
+		// generate bubble chart
 		Plotly.newPlot('bubble', data, layout);
 
 
-		generateGauge(numScrubs);
+		////////////////////////////////////////////
+		//                                        //
+		//  		BONUS GAUGE CHART             //
+		//                                        //
+		// generate BONUS gauge chart using       //
+		// wash frequency for the current subject //
+		//                                        //
+		////////////////////////////////////////////
+		generateGauge(currDemo[0].wfreq);
 	}
   
 });
