@@ -46,7 +46,7 @@ function generateGauge(needleValue) {
   			textposition:'inside',      
 			marker: {colors:["darkcyan", "cadetblue", "darkturquoise", "mediumturquoise", "turquoise",
 							"cyan", "aquamarine", "paleturquoise", "lightcyan",
-							"white"]},
+							"lightgrey"]},
   		hole: .5,
   		type: 'pie',
   		showlegend: false
@@ -62,14 +62,13 @@ function generateGauge(needleValue) {
         		color: '850000'
       		}
     	}],
-  		title: "Scrubs per Week",
-  		height: 500,
-//  		width: 400,
-  		margin: { t: 100, r: 0, l: 0, b: 5 },
+  		height: 400,
+  		margin: { t: 0, r: 0, l: 0, b: 0 },
   		xaxis: {type:'category',zeroline:false, showticklabels:false,
             showgrid: false, range: [-1, 1]},
   		yaxis: {type:'category',zeroline:false, showticklabels:false,
-            showgrid: false, range: [-1, 1]}
+            showgrid: false, range: [-1, 1]},
+		plot_bgcolor: "lightgrey"
 	};
 
 
