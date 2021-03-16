@@ -29,18 +29,20 @@
 const dataFile = "./data/samples.json";
 
 
-// read in the JSON study data 
-d3.json(dataFile).then((importedData) => {
 
 
-	// layout the page with the selected subject id
-	function optionChanged() {
+// layout the page with the selected subject id
+function optionChanged(idChosen) {
 
-		// locate the dropdown input
-		var dropdownMenu = d3.select("#selDataset");
+	// read in the JSON study data 
+	d3.json(dataFile).then((importedData) => {
 
-		// assign the value of the dropdown menu option to a variable
-		var idChosen = dropdownMenu.property("value");
+		var demographics = importedData.metadata;
+		var samples = importedData.samples;
+	
+		function filterId(data) {
+		return data.id == idChosen;
+		}
   
 		// filter out demographics for current ID
 		var currDemo = demographics.filter(data => data.id == idChosen);
@@ -84,16 +86,20 @@ d3.json(dataFile).then((importedData) => {
 		//                                        //
 		////////////////////////////////////////////
 		generateGauge(currDemo[0].wfreq);
-	}
+	});
+}
+
+
+
 	
-	////////////////
-	// BEGIN MAIN //
-	////////////////
+////////////////
+// BEGIN MAIN //
+////////////////
+d3.json(dataFile).then((importedData) => {
+
 	// pull out the subject ids, the demographics data,
 	// and the data samples
 	var ids = importedData.names;
-	var demographics = importedData.metadata;
-	var samples = importedData.samples;
 
 
 	// locate the target for the dropdown values
@@ -106,10 +112,6 @@ d3.json(dataFile).then((importedData) => {
 	}
 
 	// initialize page with data
-	optionChanged();
-	
+	optionChanged(ids[0]);
 
-	// wait on change, and refresh the page
-	d3.selectAll("#selDataset").on("change", optionChanged);
-	
 }); 
