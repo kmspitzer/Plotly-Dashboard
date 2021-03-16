@@ -40,14 +40,14 @@ function optionChanged(idChosen) {
 		var demographics = importedData.metadata;
 		var samples = importedData.samples;
 	
+		// define function to filter JSON data by
+		// subject id
 		function filterId(data) {
-		return data.id == idChosen;
+			return data.id == idChosen;
 		}
   
-		// filter out demographics for current ID
+		// filter out demographics and samples for current ID
 		var currDemo = demographics.filter(data => data.id == idChosen);
-		
-		// filter out sample for current ID
 		var currSample = samples.filter(data => data.id == idChosen);
 
 		// we will need a list of OTU ids, OTU labels
@@ -100,7 +100,6 @@ d3.json(dataFile).then((importedData) => {
 	// pull out the subject ids, the demographics data,
 	// and the data samples
 	var ids = importedData.names;
-
 
 	// locate the target for the dropdown values
 	var dropdownTarget = d3.select("#selDataset");

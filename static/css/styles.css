@@ -1,32 +1,31 @@
 
 body {
-  font-family: "Open Sans", verdana, arial, sans-serif;
-}
+	font-family: "Open Sans", verdana, arial, sans-serif;
+ }
 
-.jumbotron {
-	background: paleturquoise;
+ .jumbotron {
 	font-family: 'Varela Round', sans-serif;
-}
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.9);
+ }
 
 .panel-info>.panel-heading {
-	background-color: paleturquoise;
-	color: black;
-	border: 1px solid lightgrey;
+	  background-color: paleturquoise;
+	  color: black;
+	  border: 1px solid lightgrey;
 }
-
+  
 .panel-body {
-	font-size: 12px;
-	border: 1px solid lightgrey;
+	  font-size: 12px;
+	  border: 1px solid lightgrey;
 }
-
-#bar {
-	width: 100%;
+  
+#bar, #bubble {
+	  width: 100%;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.9);
 }
 
 #gauge {
 	width: 100%;
 }
 
-#bubble {
-	width: 100%;
-}
+  
