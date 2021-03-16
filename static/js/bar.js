@@ -36,7 +36,7 @@ function generateBar(otuIds, otuLabels, sampleValues, idChosen) {
    		type: "bar",
    		orientation: "h",
 		marker: {
-			color: 'rgb(142,124,195)',
+			color: 'rgb(236, 141, 81)',
 			opacity: 0.5
 		}
  	}];
