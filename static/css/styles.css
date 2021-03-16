@@ -1,0 +1,25 @@
+
+body {
+  font-family: "Open Sans", verdana, arial, sans-serif;
+}
+
+.jumbotron {
+	background: paleturquoise;
+	font-family: 'Varela Round', sans-serif;
+}
+
+.panel-body {
+	font-size: 11px;
+}
+
+#bar {
+	width: 100%;
+}
+
+#gauge {
+	width: 100%;
+}
+
+#bubble {
+	width: 100%;
+}
