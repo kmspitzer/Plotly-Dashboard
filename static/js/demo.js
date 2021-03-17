@@ -1,4 +1,18 @@
 
+//
+//
+//   UCSD Data Science and Visualization Bootcamp
+//     Plotly Challenge
+//
+//     Kate Spitzer
+//
+//  The displayDemographics() function receives a JS object containing
+//  demographic info associated with the current subject ID.  An HTML
+//  table is built using the demographics data for display on the
+//  webpage.
+//
+//
+
 function displayDemographics(currDemo) {
 
 	// locate the output position of the demographics

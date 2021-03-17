@@ -9,8 +9,10 @@
 //  the current study subject and renders a gauge chart using
 //  Plotly pie chart functionality.
 //
-//  Code was located on the plotly.com community forum and
+//  *********
+//	NOTE: Code was located on the plotly.com community forum and
 //  modified to render this chart
+//	*********
 //
 //
 

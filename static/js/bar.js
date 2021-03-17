@@ -1,4 +1,23 @@
 
+//
+//
+//   UCSD Data Science and Visualization Bootcamp
+//     Plotly Challenge
+//
+//     Kate Spitzer
+//
+//  The generateBar() function receives 3 arrays of study data, as
+//  well as the current subject id.  The 3 arrays are combined into
+//  a JS object to facilitate sorting.  The object is sorted in
+//  descending order by sample value, and the top 10 entries are
+//  sliced for graphing.  The order of the entries are reversed to
+//  facilitate display in the proper order on a Plotly horizontal
+//  bar chart.  The x-axis will represent sample value, the y-axis
+//  will indicate OTU id.
+//
+//
+
+
 function generateBar(otuIds, otuLabels, sampleValues, idChosen) {
 
 	// create a JS object for sorting

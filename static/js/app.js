@@ -101,14 +101,8 @@ d3.json(dataFile).then((importedData) => {
 	// and the data samples
 	var ids = importedData.names;
 
-	// locate the target for the dropdown values
-	var dropdownTarget = d3.select("#selDataset");
-
-	// loop through the ids and add them to the
-	// dropdown menu as options
-	for (let i = 0; i < ids.length; i++) {
-		dropdownTarget.append("option").attr("value", ids[i]).text(ids[i]);
-	}
+	// use ids to generate our dropdown menu
+	buildDropdown(ids);
 
 	// initialize page with data
 	optionChanged(ids[0]);

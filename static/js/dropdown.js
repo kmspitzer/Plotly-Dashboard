@@ -1,4 +1,15 @@
 
+//
+//
+//   UCSD Data Science and Visualization Bootcamp
+//     Plotly Challenge
+//
+//     Kate Spitzer
+//
+//  The buildDropdown() function receives an array of subject ids, and
+//  loops through them add option elements to a dropdown menu.
+//
+//
 
 function buildDropdown(idList) {
 	// locate the target for the dropdown values
