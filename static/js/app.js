@@ -47,8 +47,8 @@ function optionChanged(idChosen) {
 		}
   
 		// filter out demographics and samples for current ID
-		var currDemo = demographics.filter(data => data.id == idChosen);
-		var currSample = samples.filter(data => data.id == idChosen);
+		var currDemo = demographics.filter(filterId);
+		var currSample = samples.filter(filterId);
 
 		// we will need a list of OTU ids, OTU labels
 		// and sample values
