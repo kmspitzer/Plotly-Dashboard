@@ -1,6 +1,5 @@
 # plotly-challenge
 
- Kate Spitzer
    
    The Plotly challenge tasked us with creating an interactive dashboard using data gathered in a belly button biodiversity study using javascript and plotly.
    
