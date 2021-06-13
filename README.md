@@ -1,7 +1,7 @@
 # Plotly-Dashboard
 
    
-   The Plotly challenge tasked us with creating an interactive dashboard using data gathered in a belly button biodiversity study using javascript and plotly.
+   This functionality creates an interactive dashboard using data gathered in a belly button biodiversity study using javascript and plotly.
    
    
    To run this page, visit: https://kmspitzer.github.io/plotly-challenge/
