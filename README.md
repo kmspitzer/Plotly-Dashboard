@@ -11,7 +11,8 @@
    -------  
    data/samples.json
 
-
+   ![image](/images/dashboardss1.png)
+   ![image](/images/dashboardss2.png)
    
    Dashboard Elements:
    -----------------------
@@ -59,8 +60,7 @@
     modified to render this chart
    *********
    
-   ![image](/images/dashboardss1.png)
-   ![image](/images/dashboardss2.png)
+
    
    
    
