@@ -59,6 +59,9 @@
     modified to render this chart
    *********
    
+   ![image](/images/dashboardss1.png)
+   ![image](/images/dashboardss2.png)
+   
    
    
    
